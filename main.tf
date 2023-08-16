@@ -62,15 +62,6 @@ resource "aws_security_group" "tf_sg" {
     }
 }
 
-resource "aws_s3_bucket" "tf_s3" {
-  bucket = "avinash-2023-tf-August2023"
-
-  tags = {
-    Name        = "My bucket"
-    Environment = "Dev"
-  }
-}
-
 
 resource "aws_instance" "tf_webserver1" {
     ami="ami-053b0d53c279acc90"
@@ -80,10 +71,3 @@ resource "aws_instance" "tf_webserver1" {
     user_data = base64encode(file("userdata.sh"))
 }
 
-resource "aws_instance" "tf_webserver2" {
-    ami="ami-053b0d53c279acc90"
-    instance_type = "t2.micro"
-    vpc_security_group_ids = [aws_security_group.tf_sg.id]
-    subnet_id = aws_subnet.sub2.id
-    user_data = base64encode(file("userdata1.sh"))
-}
